@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>A Loteria do S — 5º ano</title>
+<title>Aprendendo a ortografia do S, SS, C, Ç, SC, X e Z — 5º ano</title>
 <meta name="description" content="Vinte e duas folhas interativas de ortografia para o 5º ano, sobre o som de S e as cinco letras que o escrevem: S, SS, C, Ç e SC — mais o S com som de Z e o X de exame. Loteria, gavetas, sílabas, ordem alfabética, ditado, caça-palavras e cruzadinha, com as figuras recortadas das próprias folhas de papel.">
 <!-- ============================================================
      A LOTERIA DO S — Língua Portuguesa, 5º ano (ortografia: o som de S)
@@ -136,6 +136,27 @@ button{font-family:inherit;cursor:pointer}
 
 /* fileira genérica de opções */
 .ops{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px}
+/* ⚠️ O ALTO-FALANTE DA RESPOSTA — DISCRETO, e é regra do Marcos (20/set/2026):
+   *"o alto-falante discreto para clicar caso o estudante queira ouvir"*. Ele
+   vem AO LADO de cada opção, antes da escolha, para quem ainda não lê.
+   ⚠️ 42 px e não menos: o portão de leiaute reprova alvo abaixo de 40 px, e
+   dedo de criança não acerta menor que isso. "Discreto" aqui é a BORDA clara e
+   a opacidade, não o tamanho. */
+/* ⚠️ `wrap` e `max-width` NÃO são enfeite: sem eles a opção + o alto-falante
+   passavam 20 px da tela do celular no `_reinos` (folha 25), e o portão de
+   leiaute pegou — alvo cortado na beira é alvo que a criança não alcança.
+   Com `wrap`, quando não cabe lado a lado o alto-falante desce para baixo
+   da resposta em vez de empurrá-la para fora. */
+.opw{display:flex;flex-wrap:wrap;align-items:center;gap:6px;max-width:100%}
+.opw.larga{width:100%;max-width:440px}
+.opw.larga .op.frase{flex:1;width:auto;max-width:none}
+.som.somop{width:42px;height:42px;min-width:42px;border-width:2px;
+  border-color:#e3d6ce;opacity:.85}
+.som.somop:active{opacity:1}
+.som.somop .cone{left:11px;top:15px}
+.som.somop .o1{left:24px;top:14px}
+.som.somop .o2{left:27px;top:9px}
+
 .op{min-width:64px;min-height:56px;border:3px solid #e6dbd1;border-radius:16px;background:#fff;color:var(--texto);
   font-weight:900;font-size:20px;padding:8px 14px;-webkit-transition:transform .1s;transition:transform .1s}
 .op:active{transform:scale(.94)}
@@ -659,12 +680,21 @@ img{-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;user-drag:n
   -webkit-transform:scale(1.06);transform:scale(1.06)}
 .op.dit.usada{opacity:.35;pointer-events:none}
 .op.pal.nao{-webkit-animation:treme .34s;animation:treme .34s}
+
+/* ⚠️ PISO DE TOQUE DE 44 px NA CASINHA DA CRUZADINHA (20/set/2026).
+   A regra vem por ULTIMO de proposito: ela SOBREPOE a de cima, que
+   deixava a casinha em 26 px no celular — dois tercos de um dedo de
+   crianca. A cruzadinha mora dentro de `.cruzenv{overflow-x:auto}`,
+   entao crescer nao a corta: ela passa a rolar de lado, e o portao do
+   leiaute aceita o que esta alcancavel por arrasto.
+   Copiado do `_rima2`, que ja tinha o conserto — nao reescrito. */
+.ccel{width:clamp(44px,9vw,50px);height:clamp(44px,9vw,50px);min-width:44px;min-height:44px;border:0;background:transparent;padding:0}
 </style></head><body>
 
 <div id="topo">
   <button class="zap ouvir" id="bOuvir" aria-label="Ouvir de novo"><svg viewBox="0 0 24 24"><path d="M12 3a5 5 0 0 0-5 5v1H5v6h2v1a5 5 0 0 0 10 0v-1h2V9h-2V8a5 5 0 0 0-5-5z"/></svg></button>
   <button class="zap" id="bVoz" aria-label="Ligar ou desligar a narração"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg></button>
-  <div class="tit">A Loteria do S</div>
+  <div class="tit">Aprendendo a ortografia do S, SS, C, Ç, SC, X e Z</div>
   <div class="prog"><i id="progI"></i></div>
   <div class="pg" id="pg">Capa</div>
 </div>
@@ -977,7 +1007,7 @@ var FALAS = {
  "alfa_osso": "osso.",
  "alfa_pssaro": "pássaro.",
  "alfa_salada": "salada.",
- "capa": "A Loteria do S. Vinte e duas folhas sobre um som só: o som de SAPO. Acontece que ele se escreve de cinco jeitos diferentes, e é aí que a gente erra. Escreva o seu nome ali embaixo e toque em Começar.",
+ "capa": "Aprendendo a ortografia do S, SS, C, Ç, SC, X e Z. Vinte e duas folhas sobre um som só: o som de SAPO. Acontece que ele se escreve de cinco jeitos diferentes, e é aí que a gente erra. Escreva o seu nome ali embaixo e toque em Começar.",
  "certo1": "Isso! Você achou todas. Repare: o que engana é o som — todas elas se falam igual, certas ou erradas. Quem decide é a regra da escrita.",
  "certo10_assado": "Isso! Assado. Som de S entre duas vogais: são dois SS.",
  "certo10_cacador": "Isso! Caçador. Depois do buraco vem o A, e a cedilha anda com A, O e U.",
@@ -1939,7 +1969,7 @@ var CURRICULO = {
    "habilidade": "HABILIDADE: \"Grafar palavras utilizando regras de correspondência fonema-grafema regulares, contextuais e morfológicas e palavras de uso frequente com correspondências irregulares.\""
   },
   {
-   "objetivo": "Separar a palavra em sílabas, contar e pôr em ordem",
+   "objetivo": "Separar em sílabas e em palavras, contar e pôr em ordem",
    "folhas": [
     13,
     14,
@@ -2153,5 +2183,5 @@ function novaFolha(){
   </div>
 </div>
 <!--</dossie-html>-->
-<script src="folhas.js?v=833f20a47b"></script>
+<script src="folhas.js?v=83eb114672"></script>
 </body></html>
